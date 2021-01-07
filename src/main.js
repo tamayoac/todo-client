@@ -1,5 +1,12 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import store from './store'
+import { createApp } from 'vue';
+import App from './App.vue';
+import store from './store';
+import Toaster from '@meforma/vue-toaster';
+import "@/assets/styles/main.css";
 
-createApp(App).use(store).mount('#app')
+
+const app = createApp(App);
+
+app.use(Toaster)
+app.use(store);
+app.mount('#app');
