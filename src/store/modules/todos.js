@@ -1,4 +1,4 @@
-import todos from '../../api/todos';
+import * as API from '../../api/api';
 
 const state = {
     todos: {},
@@ -14,34 +14,39 @@ const getters = {
 const actions = {
     async fetchTodos(context) {
         context.commit("SET_LOADING_STATUS", true);
-        todos.all().then(response => {
-            if (response.status === 200) {
-                context.commit("SET_LOADING_STATUS", false);
-                context.commit("GET_TODOS", response.data);
-            }
-        });
+        const response = await API.call({
+            config: {
+                url: "/todos",
+                method: "GET",
+            },
+            isAuthenticated: true,
+        }).catch((err) => err);
+        console.log(response);
+        context.commit("SET_LOADING_STATUS", false);
+        context.commit("GET_TODOS", response.data);
+            
     },
-    async addTodos(context, payload) {
+    // async addTodos(context, payload) {
         
-        todos.store(payload).then((response) => {
-            if(response.status === 200) {
-                this.$toast.success("Successfully Saved");
-            }
-        }).catch((error)=>{
-            if (error.response.status === 422) {
-                context.commit("SET_VALIDATION_ERRORS", error.response.data);
-            }
-            return Promise.reject(error);
-        });
-    },
-    async destoryTodo(context, todo) {
-        context.commit("REMOVE_TODO", todo);
-        todos.destory(todo.id).then(response => {
-            if(response.status === 200) {
-                this.$toast.success("Successfully Deleted");
-            }
-        });
-    }
+    //     todos.store(payload).then((response) => {
+    //         if(response.status === 200) {
+    //             this.$toast.success("Successfully Saved");
+    //         }
+    //     }).catch((error)=>{
+    //         if (error.response.status === 422) {
+    //             context.commit("SET_VALIDATION_ERRORS", error.response.data);
+    //         }
+    //         return Promise.reject(error);
+    //     });
+    // },
+    // async destoryTodo(context, todo) {
+    //     context.commit("REMOVE_TODO", todo);
+    //     todos.destory(todo.id).then(response => {
+    //         if(response.status === 200) {
+    //             this.$toast.success("Successfully Deleted");
+    //         }
+    //     });
+    // }
 };
 
 const mutations = {

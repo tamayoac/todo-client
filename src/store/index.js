@@ -1,5 +1,6 @@
 import Vuex from 'vuex';
 import todos from './modules/todos';
+import auth from './modules/auth';
 
 export default new Vuex.Store({
     state: {},
@@ -7,5 +8,6 @@ export default new Vuex.Store({
     actions: {},
     modules: {
       todos,
+      auth,
     }
 });

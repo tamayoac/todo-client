@@ -1,25 +1,14 @@
 <template>
   <div id="app">
-    <div class="max-w-6xl mx-auto">
-      <AddTodo />
-      <Todos />
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Todos from './components/Todos'
-import AddTodo from './components/AddTodo'
-
-export default {
-  name: 'App',
-  components: {
-    Todos,
-    AddTodo
+  export default {
+    name: 'App',
+    components: {
+     
+    }
   }
-}
 </script>
-
-<style>
-
-</style>
